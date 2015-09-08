@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Chat Application</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/switch.min.css">
+	<link rel="stylesheet" href="css/tomorrow.highlight.css">
+	<link rel="stylesheet" href="fonts/io/style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+	<div id="preloader">
+		<div class="center-h">
+			<div class="center-v">
+				<div class="spin">
+					<svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+						<path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(276.8 25 25)">
+							<animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform>
+						</path>
+					</svg>
+				</div>
+				<div class="state">connexion...</div>
+			</div>
+		</div>
+	</div>
+	<div class="st-container">
+		<div class="st-pusher">
+			<nav class="st-menu">
+				<div id="menu">
+					<div class="title"><span data-profile="nickname" data-type="html">Nickname</span>'s profile</div>
+					<div class="profile" style="clear:both;">
+						<div class="table-row">
+							<div class="form-group form-avatar">
+								<label for="opt-avatar">Avatar</label>
+								<div class="avatar"></div>
+								<input type="file" id="opt-avatar" class="form-control">
+							</div>
+							<div class="form-group form-nickname">
+								<label for="opt-nickname">Pseudo</label>
+								<input type="text" id="opt-nickname" class="form-control" data-profile="nickname" data-type="val" data-onkeyup>
+								<p class="help-block">ID#<code data-profile="id"></code> <span class="clear-id tips io-x" title="Obtenir un nouvel ID"></span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+			<div class="st-content">
+				<div class="st-content-inner">
+					<div id="app">
+						<div class="left">
+							<button type="button" class="btn btn-success settings io-wrench"></button>
+							<ul id="users">
+							</ul>
+						</div>
+						<div class="right">
+							<div id="messages">
+								<ul>
+								</ul>
+							</div>
+							<form id="controls">
+								<div class="btn-group fast-settings">
+									<label class="btn io-comment-flat tips" data-profile="textarea" data-type="bool" title="Mode paragraphe"></label>
+									<label class="btn io-switch tips" data-profile="indent" data-type="bool" data-require="textarea" title="Indentation"></label>
+									<label class="btn io-code-1 tips" data-profile="syntax" data-type="bool" data-require="textarea" title="Coloration syntaxique"></label>
+									<label class="btn io-speaker-loud tips" data-profile="sound" data-type="bool" title="Notifications"></label>
+								</div>
+								<div class="form-group">
+									<textarea autocomplete="off" class="input form-control"></textarea>
+									<input type="text" autocomplete="off" class="input form-control" style="display: block;">
+
+									<div class="btn-group tools">
+										<button type="submit" class="io-level-up send btn btn-success">Envoyer</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modals -->
+	<div id="login" class="dialog danger sm">
+		<form class="form-unified">
+			<h2 class="form-heading">Connectez vous</h2>
+			<div class="form-group">
+				<label for="inputEmail">Email <small>ou</small> pseudo</label>
+				<input type="text" class="form-control" id="inputEmail" name="email" placeholder="exemple@gmail.com" required>
+			</div>
+			<div class="form-group">
+				<label for="inputPassword">Mot de passe</label>
+				<input type="password" class="form-control" id="inputPassword" name="password" placeholder="••••••••" required>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
+			<p class="help-block">Pas encore inscrit ? <a href="#" onclick="client.$register.show();">Enregistrez votre compte !</a></p>
+		</form>
+	</div>
+	<div id="register" class="dialog danger sm">
+		<form class="form-unified">
+			<h2 class="form-heading">Enregistrement</h2>
+			<div class="form-group">
+				<label for="inputEmail">Email</label>
+				<input type="email" class="form-control" id="inputEmail" name="email" placeholder="exemple@gmail.com" required>
+			</div>
+			<div class="form-group">
+				<label for="inputPassword">Mot de passe</label>
+				<input type="password" class="form-control" id="inputPassword" name="password" placeholder="••••••••" required>
+			</div>
+			<div class="form-group">
+				<label for="inputPasswordConfirm">Confirmez le mot de passe</label>
+				<input type="password" class="form-control" id="inputPasswordConfirm" name="password_confirmation" placeholder="••••••••" required>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">S'enregistrer</button>
+		</form>
+	</div>
+	
+	<!-- SocketIO requirement-->
+	<script src="socket.io/socket.io.js"></script>
+	<script src="js/socket.io-stream.js"></script>
+
+	<!-- Client dependencies -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/highlight.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="js/jquery.finger.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/behave.js"></script>
+	<script src="js/switch.min.js"></script>
+	<script src="js/client.js"></script>
+	<script>
+		$(document).ready(function() {
+			window.client = new Client();
+		});
+	</script>
+</body>
+
+</html>
